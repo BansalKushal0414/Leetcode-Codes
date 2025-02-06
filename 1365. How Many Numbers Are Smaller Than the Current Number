@@ -1,0 +1,46 @@
+//  For Runtime : 1ms
+
+class Solution {
+    public int[] smallerNumbersThanCurrent(int[] nums) {
+        int[] freq = new int[101];
+        int res[] = new int[nums.length];
+
+        for(int i=0;i<nums.length;i++){
+            int num = nums[i];
+            freq[num]+=1;
+        }
+
+        for(int i=1;i<freq.length;i++){
+            freq[i] += freq[i-1]; 
+        }
+
+        for(int i=0;i<nums.length;i++){
+            if(nums[i]!=0){
+                res[i] = freq[nums[i]-1]; 
+            }
+        }
+
+        // System.out.println(Arrays.toString(freq));
+
+        return res;
+    }
+}
+
+//  Using another approach
+//  Runtime : 9ms
+
+class Solution {
+    public int[] smallerNumbersThanCurrent(int[] nums) {
+        int[] arr = new int[nums.length];
+        for(int i=0;i<nums.length;i++){
+            int counter = 0;
+            for(int j=0;j<nums.length;j++){
+                if(nums[j]<nums[i] && i!=j){
+                    counter++;
+                }
+            }
+            arr[i] = counter;
+        }
+        return arr;
+    }
+}

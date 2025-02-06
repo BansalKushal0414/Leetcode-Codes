@@ -1,0 +1,18 @@
+class Solution {
+    public int largestAltitude(int[] gain) {
+        int[] alti = new int[(gain.length)+1];
+        int maxalti = -100;
+        alti[0] = 0;
+        for(int i=0;i<gain.length;i++){
+            alti[i+1] = gain[i] + alti[i];
+        }
+
+        for(int i=0;i<alti.length;i++){
+            if(alti[i]>maxalti){
+                maxalti = alti[i];
+            }
+        }
+
+        return maxalti;
+    }
+}

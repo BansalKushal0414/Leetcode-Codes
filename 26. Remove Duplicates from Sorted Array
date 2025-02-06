@@ -1,0 +1,29 @@
+class Solution {
+    public int removeDuplicates(int[] nums) {
+        int count = 0;
+        int place = 1;
+        int k = 1;
+        for(int i=1;i<nums.length;i++){
+            if(nums[count]!=nums[i]){
+                nums[place] = nums[i];
+                count++;
+                place++;
+            }
+        }
+        for(int i = 0;i<nums.length;i++){
+            if(nums.length == 1){
+                return 1;
+            }
+            if(i==nums.length-1){
+                return k;
+            }
+            if(nums[i]<nums[i+1]){
+                k++;
+            }
+            else{
+                return k;
+            }
+        }
+        return k;
+    }
+}

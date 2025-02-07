@@ -1,0 +1,91 @@
+class Solution {
+    public boolean findRotation(int[][] mat, int[][] target) {
+        int len = mat.length;
+        int[][] arr = new int[len][len];
+        int sum1 = 0;
+        int sum2 = 0;
+        boolean isEqual = true;
+
+        //  For Counting number of ones in Both
+        for (int i = 0; i < len; i++) {
+            for (int j = 0; j < len; j++) {
+                sum1 += mat[i][j];
+                sum2 += target[i][j];
+            }
+        }
+
+        //  If sum is not equal then matrices can't be equal
+        if (sum1 != sum2) {
+            return false;
+        }
+
+        //  For Checking that it is already equal or not
+        for (int i = 0; i < len; i++) {
+            for (int j = 0; j < len; j++) {
+                if(mat[i][j] != target[i][j]){
+                    isEqual = false;
+                }
+            }
+        }
+
+        if(isEqual){
+            return true;
+        }
+
+        //   For Transposing Matrix
+        for (int i = 0; i < len; i++) {
+            for (int j = 0; j < len; j++) {
+                arr[i][j] = mat[j][i];
+            }
+        }
+
+        //  For Reversing Matrix
+        for (int i = 0; i < len; i++) {
+            for (int j = 0; j < len; j++) {
+                int temp = arr[i][len - 1 - j];
+                mat[i][j] = temp;
+            }
+        }
+
+        for(int i=0;i<3;i++){
+            if(isEqual(mat,target)){
+                return true;
+            }
+            rotate(mat);
+        }
+
+        return false;
+    }
+
+    public boolean isEqual(int[][] matr , int[][] tar){
+        for (int i = 0; i < matr.length; i++) {
+            for (int j = 0; j < matr.length; j++) {
+                if (matr[i][j] != tar[i][j]) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    public int[][] rotate(int[][] matrix){
+        int len = matrix.length;
+        int[][] arr = new int[len][len];
+
+        //   For Transposing Matrix
+        for (int i = 0; i < len; i++) {
+            for (int j = 0; j < len; j++) {
+                arr[i][j] = matrix[j][i];
+            }
+        }
+
+        //  For Reversing Matrix
+        for (int i = 0; i < len; i++) {
+            for (int j = 0; j < len; j++) {
+                int temp = arr[i][len - 1 - j];
+                matrix[i][j] = temp;
+            }
+        }
+        return matrix;
+    }
+}

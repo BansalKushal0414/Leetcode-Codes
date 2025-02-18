@@ -1,0 +1,19 @@
+class Solution {
+    public boolean canJump(int[] nums) {
+        boolean flag = false;
+        if (nums.length == 1) {
+            return true;
+        }
+
+        int len = nums.length-1;
+        for(int i=nums.length-2;i>=0;i--){
+            if (nums[i] >= len-i) {
+                len = i;
+                flag = true;
+            } else {
+                flag = false;
+            }
+        }
+        return flag;
+    }
+}

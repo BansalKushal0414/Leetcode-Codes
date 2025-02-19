@@ -1,0 +1,20 @@
+class Solution {
+    public boolean searchMatrix(int[][] matrix, int target) {
+        int upper = matrix[0].length-1;
+        int lower = 0;
+
+        while(upper >=0 && lower <matrix.length){
+            if(matrix[lower][upper] == target){
+                return true;
+            }
+
+            if(matrix[lower][upper] > target){
+                upper--;
+            }
+            else{
+                lower++;
+            }
+        }
+        return false;
+    }
+}

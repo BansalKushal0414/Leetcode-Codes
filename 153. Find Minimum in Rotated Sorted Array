@@ -1,0 +1,46 @@
+class Solution {
+    public int findMin(int[] nums) {
+        int start = 0;
+        int end = nums.length - 1;
+        int ans = -1;
+        while(start < end ){
+            int mid = start + (end - start)/2;
+            if(nums[mid] > nums[mid+1]){
+                ans = mid ;
+                return nums[(ans + 1)%nums.length] ;
+            }
+            if(nums[start]<=nums[mid]){
+                start = mid + 1;
+            }
+            else{
+                end = mid - 1;
+                ans = end;
+            }
+        }
+        return nums[(end + 1)%nums.length] ;
+    }
+}
+
+
+//   Another Method : Same Runtime
+
+
+class Solution {
+    public int findMin(int[] nums) {
+        int low = 0, high = nums.length - 1;
+        int ans = nums[0];
+        while (low <= high) {
+            int mid = (low + high) / 2;
+            if (nums[low] <= nums[mid]) {
+                ans = ans < nums[low] ? ans : nums[low];
+                low = mid + 1;
+            }
+
+            else {
+                high = mid - 1;
+                ans = ans < nums[mid] ? ans : nums[mid];
+            }
+        }
+        return ans;
+    }
+}

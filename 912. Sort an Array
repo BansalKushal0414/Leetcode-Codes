@@ -1,0 +1,103 @@
+//  Runtime: 20ms
+
+class Solution {
+    public int[] sortArray(int[] nums) {
+        int left = 0;
+        int right = nums.length-1;
+        int[] arr = new int[nums.length];
+        return mergeSort(nums,left,right);
+    }
+
+    public int[] mergeSort(int[] arr, int l,int r){
+        if (l == r) {
+            return new int[] { arr[l] };
+        }
+        int mid = l+(r-l)/2;
+
+        int[] left = mergeSort(arr, l, mid);
+        int[] right = mergeSort(arr, mid + 1, r);
+
+        return mergeArray(left,right);
+    }
+
+    public int[] mergeArray(int[] l,int[] r){
+        int[] arr = new int[l.length+r.length];
+        int c1 = 0;
+        int c2 = 0;
+        int k = 0;
+
+        while(c1<l.length && c2<r.length){
+            if(l[c1]==r[c2]){
+                arr[k++] = l[c1++];
+                arr[k++] = r[c2++];
+            }
+            else if(l[c1]<r[c2]){
+                arr[k++] = l[c1++];
+            }
+            else{
+                arr[k++] = r[c2++];
+            }
+        }
+
+        while(c1<l.length){
+            arr[k++] = l[c1++];
+        }
+
+        while(c2<r.length){
+            arr[k++] = r[c2++];
+        }
+        return arr;
+    }
+}
+
+
+//   Runtime: 29ms
+
+class Solution {
+    public int[] sortArray(int[] nums) {
+        return mergeSort(nums);
+    }
+
+     static int[] mergeSort(int[] arr) {
+        if (arr.length == 1) {
+            return arr;
+        }
+
+        int mid = arr.length / 2;
+        int[] left = mergeSort(Arrays.copyOfRange(arr, 0, mid));
+        int[] right = mergeSort(Arrays.copyOfRange(arr, mid, arr.length));
+
+        return mergeArrays(left, right);
+    }
+
+    static int[] mergeArrays(int[] first, int[] second) {
+        int n = first.length;
+        int m = second.length;
+        int[] mergedArray = new int[n + m];
+
+        int i = 0;
+        int j = 0;
+        int k = 0;
+        while (i < n && j < m) {
+            if (first[i] < second[j]) {
+                mergedArray[k] = first[i];
+                i++;
+            } else {
+                mergedArray[k] = second[j];
+                j++;
+            }
+            k++;
+        }
+        while (i < n) {
+            mergedArray[k] = first[i];
+            i++;
+            k++;
+        }
+        while (j < m) {
+            mergedArray[k] = second[j];
+            j++;
+            k++;
+        }
+        return mergedArray;
+    }
+}

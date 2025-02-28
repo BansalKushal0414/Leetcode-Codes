@@ -1,0 +1,144 @@
+//  Runtime: 0ms
+//  Using Frequency Method
+
+class Solution {
+    public int[] intersection(int[] nums1, int[] nums2) {
+        int[] temp = new int[1001];
+        for (int i = 0; i < nums1.length; i++) {
+            temp[nums1[i]] = 1;
+        }
+        
+        int count = 0;
+        
+        for (int i = 0; i < nums2.length; i++) {
+            if (temp[nums2[i]] == 1) {
+                count++;
+                temp[nums2[i]] = 2;
+            }
+        }
+        
+        int[] arr = new int[count];
+        int j = 0;
+        
+        for (int i = 0; i < nums2.length; i++) {
+            if (temp[nums2[i]] == 2) {
+                temp[nums2[i]] = 1;
+                arr[j++] = nums2[i];
+            }
+        }
+        
+        return arr;
+    }
+}
+
+//  Runtime: 2ms
+//  Using Two Boolean Arrays
+
+class Solution {
+    public int[] intersection(int[] nums1, int[] nums2) {
+        boolean[] arr1 = new boolean[1001];
+        boolean[] arr2 = new boolean[1001];
+
+        List<Integer> arr = new ArrayList<>();
+
+        for(int i=0;i<nums1.length;i++){
+            arr1[nums1[i]] = true;
+        }
+        for(int i=0;i<nums2.length;i++){
+            arr2[nums2[i]] = true;
+        }
+
+        for(int i=0;i<1001;i++){
+            if(arr1[i] == true && arr2[i] == true){
+                arr.add(i);
+            }
+        }
+
+        int[] result = new int[arr.size()];
+        int index = 0;
+        for (int num : arr) {
+            result[index++] = num;
+        }
+        return result;
+    }
+}
+
+//  Runtime: 84ms
+//  Using Merge Sort, Binary Search, HashSet, Two Pointer
+
+class Solution {
+    public int[] intersection(int[] nums1, int[] nums2) {
+        Set<Integer> arr = new HashSet<>();
+        
+        for(int i=0;i<nums1.length;i++){
+            if(inter(mergeSort(nums2,0,nums2.length-1),nums1[i])){
+                arr.add(nums1[i]);
+            }
+        }
+        int[] array = new int[arr.size()];
+        int index = 0;
+        for (int num : arr) {
+            array[index++] = num;
+        }
+        return array;
+    }
+
+    public boolean inter(int[] num2, int target){
+        int start = 0;
+        int end = num2.length-1;
+        while(start<=end){
+            int mid = start + (end - start) /2;
+            if(num2[mid] == target){
+                return true;
+            }
+            if(num2[mid] > target){
+                end = mid - 1;
+            }
+            else{
+                start = mid + 1;
+            }
+        }
+        return false;
+    }
+
+    public int[] mergeSort(int[] arr, int l,int r){
+        if (l == r) {
+            return new int[] { arr[l] };
+        }
+        int mid = l+(r-l)/2;
+
+        int[] left = mergeSort(arr, l, mid);
+        int[] right = mergeSort(arr, mid + 1, r);
+
+        return mergeArray(left,right);
+    }
+
+    public int[] mergeArray(int[] l,int[] r){
+        int[] arr = new int[l.length+r.length];
+        int c1 = 0;
+        int c2 = 0;
+        int k = 0;
+
+        while(c1<l.length && c2<r.length){
+            if(l[c1]==r[c2]){
+                arr[k++] = l[c1++];
+                arr[k++] = r[c2++];
+            }
+            else if(l[c1]<r[c2]){
+                arr[k++] = l[c1++];
+            }
+            else{
+                arr[k++] = r[c2++];
+            }
+        }
+
+        while(c1<l.length){
+            arr[k++] = l[c1++];
+        }
+
+        while(c2<r.length){
+            arr[k++] = r[c2++];
+        }
+        return arr;
+    }
+}

@@ -1,0 +1,83 @@
+// For Runtime: 3ms
+// Using Slow, Fast, Previous Node
+
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+
+class Solution {
+    public ListNode deleteMiddle(ListNode head) {
+        ListNode slow = head;
+        ListNode fast = head;
+        ListNode prev = head;
+        if(head.next == null){
+            return null;
+        }
+        while( fast!=null && fast.next != null ){
+            fast = fast.next.next;
+            prev = slow;
+            slow = slow.next;
+        }
+        prev.next = prev.next.next;
+        return head;
+    }
+}
+
+// For Runtime: 5ms
+// Using Slow, Fast Node
+
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+
+class Solution {
+    public int length(ListNode a){
+        int count = 0;
+        ListNode temp = a;
+        while(temp!=null){
+            count++;
+            temp = temp.next;
+        }
+        return count;
+    }
+
+    public ListNode deleteMiddle(ListNode head) {
+        int len = length(head);
+        ListNode slow = head;
+        ListNode fast = head;
+        if(len % 2 == 0){
+            while(fast.next.next != null){
+                slow = slow.next;
+                fast = fast.next.next;
+            }
+            slow.next = slow.next.next;
+            return head;
+        }
+        else{
+            if(fast.next == null){
+                return null;
+            }
+            fast = fast.next;
+            while(fast.next.next != null){
+                slow = slow.next;
+                fast = fast.next.next;
+            }
+            slow.next = slow.next.next;
+            return head;
+        }
+    }
+}

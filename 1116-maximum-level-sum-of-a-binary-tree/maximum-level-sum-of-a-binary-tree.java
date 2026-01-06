@@ -20,7 +20,7 @@ class Solution {
         int level = 1;
 
         Queue<TreeNode> queue = new LinkedList<>();
-        queue.add(root);
+        queue.offer(root);
 
         while(!queue.isEmpty()){
             int size = queue.size();
@@ -28,8 +28,8 @@ class Solution {
             for(int i=0;i<size;i++){
                 TreeNode temp = queue.poll();
                 sum+=temp.val;
-                if(temp.left != null) queue.add(temp.left);
-                if(temp.right != null) queue.add(temp.right);
+                if(temp.left != null) queue.offer(temp.left);
+                if(temp.right != null) queue.offer(temp.right);
             }
 
             if(sum > maxSum){

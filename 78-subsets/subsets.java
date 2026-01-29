@@ -5,10 +5,11 @@ class Solution {
         int total = 1<<length;
 
         for(int i = 0;i < total;i++){
-            List<Integer> res = new ArrayList<>();
+            HashSet<Integer> set = new HashSet<>();
             for(int j=0;j < length;j++){
-                if(((1<<j)&i) != 0) res.add(nums[j]);
+                if(((1<<j)&i) != 0) set.add(nums[j]);
             }
+            List<Integer> res = new ArrayList<>(set);
             ans.add(res);
         }
         return ans;

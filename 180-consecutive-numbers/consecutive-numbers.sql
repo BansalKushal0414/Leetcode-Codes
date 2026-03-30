@@ -7,10 +7,18 @@
 -- AND l1.id = l2.id - 1
 -- AND l2.id = l3.id - 1;
 
+-- SELECT DISTINCT num AS ConsecutiveNums
+-- FROM (
+--     SELECT num, LAG(num,1) OVER (ORDER BY id) AS prev,
+--     LAG(num,2) OVER (ORDER BY id) AS prev2
+--     FROM Logs
+-- ) t
+-- WHERE num = prev AND num = prev2;
+
 SELECT DISTINCT num AS ConsecutiveNums
 FROM (
-    SELECT num, LAG(num,1) OVER (ORDER BY id) AS prev,
-    LAG(num,2) OVER (ORDER BY id) AS prev2
+    SELECT num, LEAD(num,1) OVER (ORDER BY id) AS next,
+    LEAD(num,2) OVER (ORDER BY id) AS next2
     FROM Logs
 ) t
-WHERE num = prev AND num = prev2;
+WHERE num = next AND num = next2;

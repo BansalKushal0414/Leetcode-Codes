@@ -6,7 +6,6 @@ class Solution {
             res = res * 10 + temp;
             n = n / 10;
         }
-        System.out.print(res);
         return res;
     }
     public int mirrorDistance(int n) {

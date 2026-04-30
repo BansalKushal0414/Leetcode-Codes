@@ -10,14 +10,14 @@ class Solution {
 
         pq.addAll(mp.entrySet());
 
-        String ans = "";
+        StringBuilder ans = new StringBuilder();
 
         while(!pq.isEmpty()){
             Map.Entry<Character, Integer> e = pq.poll();
             for(int i = 0; i<e.getValue();i++){
-                ans+=e.getKey();
+                ans.append(e.getKey());
             }
         }
-        return ans;
+        return ans.toString();
     }
 }

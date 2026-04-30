@@ -3,22 +3,25 @@ class Solution {
         if(strs.length == 1){
             return strs[0];
         }
+
         int maxLength = Integer.MAX_VALUE;
-        for(int i = 0;i<strs.length;i++){
-            if(strs[i].length()<maxLength){
-                maxLength = strs[i].length();
+
+        for(String s : strs){
+            if(s.length() < maxLength){
+                maxLength = s.length();
             }
         }
 
-        int k = 0;
-        while(k<maxLength){
-            for (String s : strs) {
-                if (s.charAt(k) != strs[0].charAt(k)) {
-                    return strs[0].substring(0, k);
+        int start = 0;
+
+        while(start < maxLength){
+            for(String s : strs){
+                if(s.charAt(start) != strs[0].charAt(start)){
+                    return strs[0].substring(0,start);
                 }
             }
-            k++;
+            start++;
         }
-        return strs[0].substring(0, k);
+        return strs[0].substring(0,start);
     }
 }

@@ -19,7 +19,7 @@ class Solution {
             while(!dq.isEmpty() && (prefix[dq.peekLast()] >= prefix[i])){
                 dq.pollLast();
             }
-            dq.offer(i);
+            dq.offerLast(i);
         }
         return ans == n+1 ? -1 : ans;
     }
